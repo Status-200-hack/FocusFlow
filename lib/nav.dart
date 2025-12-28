@@ -57,19 +57,35 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const SignUpScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            SlideTransition(
-              position: animation.drive(
-                Tween(begin: const Offset(0, 1), end: Offset.zero)
-                  .chain(CurveTween(curve: Curves.easeInOut)),
+            FadeTransition(
+              opacity: animation,
+              child: SlideTransition(
+                position: animation.drive(
+                  Tween(begin: const Offset(0, 0.1), end: Offset.zero)
+                    .chain(CurveTween(curve: Curves.easeOutCubic)),
+                ),
+                child: child,
               ),
-              child: child,
             ),
+          transitionDuration: const Duration(milliseconds: 400),
         ),
       ),
       GoRoute(
         path: '/home',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          child: HomeScreen(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const HomeScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(
+              opacity: animation,
+              child: SlideTransition(
+                position: animation.drive(
+                  Tween(begin: const Offset(0, 0.05), end: Offset.zero)
+                    .chain(CurveTween(curve: Curves.easeOutCubic)),
+                ),
+                child: child,
+              ),
+            ),
+          transitionDuration: const Duration(milliseconds: 400),
         ),
       ),
       GoRoute(
@@ -79,26 +95,55 @@ class AppRouter {
           return CustomTransitionPage(
             child: TaskDetailScreen(taskId: taskId),
             transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              SlideTransition(
-                position: animation.drive(
-                  Tween(begin: const Offset(0, 1), end: Offset.zero)
-                    .chain(CurveTween(curve: Curves.easeInOut)),
+              FadeTransition(
+                opacity: animation,
+                child: SlideTransition(
+                  position: animation.drive(
+                    Tween(begin: const Offset(0, 0.1), end: Offset.zero)
+                      .chain(CurveTween(curve: Curves.easeOutCubic)),
+                  ),
+                  child: child,
                 ),
-                child: child,
               ),
+            transitionDuration: const Duration(milliseconds: 400),
+            reverseTransitionDuration: const Duration(milliseconds: 400),
           );
         },
       ),
       GoRoute(
         path: '/focus',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          child: FocusScreen(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const FocusScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(
+              opacity: animation,
+              child: SlideTransition(
+                position: animation.drive(
+                  Tween(begin: const Offset(0, 0.05), end: Offset.zero)
+                    .chain(CurveTween(curve: Curves.easeOutCubic)),
+                ),
+                child: child,
+              ),
+            ),
+          transitionDuration: const Duration(milliseconds: 400),
         ),
       ),
       GoRoute(
         path: '/profile',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          child: ProfileScreen(),
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const ProfileScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(
+              opacity: animation,
+              child: SlideTransition(
+                position: animation.drive(
+                  Tween(begin: const Offset(0, 0.05), end: Offset.zero)
+                    .chain(CurveTween(curve: Curves.easeOutCubic)),
+                ),
+                child: child,
+              ),
+            ),
+          transitionDuration: const Duration(milliseconds: 400),
         ),
       ),
       GoRoute(
@@ -106,7 +151,17 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const AiAssistantScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            FadeTransition(opacity: animation, child: child),
+            FadeTransition(
+              opacity: animation,
+              child: SlideTransition(
+                position: animation.drive(
+                  Tween(begin: const Offset(0, 0.05), end: Offset.zero)
+                    .chain(CurveTween(curve: Curves.easeOutCubic)),
+                ),
+                child: child,
+              ),
+            ),
+          transitionDuration: const Duration(milliseconds: 400),
         ),
       ),
     ],

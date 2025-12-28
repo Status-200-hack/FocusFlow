@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:focusflow/models/task_model.dart';
 import 'package:focusflow/theme.dart';
+import 'package:focusflow/utils/motion_extensions.dart';
 import 'package:intl/intl.dart';
 
 class TaskCard extends StatelessWidget {
@@ -35,31 +36,33 @@ class TaskCard extends StatelessWidget {
         child: Icon(Icons.delete_outline, color: Theme.of(context).colorScheme.onError),
       ),
       onDismissed: (_) => onDelete(),
-      child: Card(
-        margin: const EdgeInsets.only(bottom: 12),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(20),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: onToggle,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    width: 24,
-                    height: 24,
-                    decoration: BoxDecoration(
-                      color: task.isCompleted ? priorityColor : Colors.transparent,
-                      border: Border.all(color: priorityColor, width: 2),
-                      borderRadius: BorderRadius.circular(6),
+      child: ScaleOnTap(
+        onTap: onTap,
+        child: Card(
+          margin: const EdgeInsets.only(bottom: 12),
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(20),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  ScaleOnTap(
+                    onTap: onToggle,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: task.isCompleted ? priorityColor : Colors.transparent,
+                        border: Border.all(color: priorityColor, width: 2),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: task.isCompleted
+                        ? const Icon(Icons.check, size: 16, color: Colors.white)
+                        : null,
                     ),
-                    child: task.isCompleted
-                      ? const Icon(Icons.check, size: 16, color: Colors.white)
-                      : null,
                   ),
-                ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
@@ -120,6 +123,7 @@ class TaskCard extends StatelessWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }
